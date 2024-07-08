@@ -109,8 +109,6 @@ public class GameActivity extends SDLActivity {
 
 	protected void onCreate (Bundle state) {
 
-		super.onCreate (state);
-
 		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
 
 			getWindow ().addFlags (WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
@@ -126,6 +124,8 @@ public class GameActivity extends SDLActivity {
 				WindowManager.LayoutParams.LAYOUT_IN_DISPLAY_CUTOUT_MODE_SHORT_EDGES;
 
 		}
+
+		super.onCreate (state);
 
 		assetManager = getAssets ();
 		vibrator = (Vibrator)mSingleton.getSystemService (Context.VIBRATOR_SERVICE);
