@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <resources>
-	<style name="AppTheme" parent="android:Theme.NoTitleBar.::if (WIN_FULLSCREEN)::.Fullscreen::end::">
+	<style name="AppTheme" parent="android:Theme.NoTitleBar::if (WIN_FULLSCREEN)::.Fullscreen::end::">
 		<item name="android:windowLayoutInDisplayCutoutMode">shortEdges</item>
 	</style>
 </resources>
