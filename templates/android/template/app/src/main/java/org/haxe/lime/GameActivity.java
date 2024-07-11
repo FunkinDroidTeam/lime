@@ -34,7 +34,6 @@ public class GameActivity extends SDLActivity {
 
 	public Handler handler;
 
-
 	public static double getDisplayXDPI () {
 
 		if (metrics == null) {
@@ -140,14 +139,6 @@ public class GameActivity extends SDLActivity {
 
 	@Override protected void onDestroy () {
 
-		if (vibrator != null) {
-			
-			Log.d ("GameActivity", "Cancelling vibration");
-
-			vibrator.cancel ();
-
-		}
-
 		for (Extension extension : extensions) {
 
 			extension.onDestroy ();
@@ -188,8 +179,6 @@ public class GameActivity extends SDLActivity {
 	@Override protected void onPause () {
 
 		if (vibrator != null) {
-			
-			Log.d ("GameActivity", "Cancelling vibration");
 
 			vibrator.cancel ();
 
@@ -389,51 +378,43 @@ public class GameActivity extends SDLActivity {
 
 	public static void vibrate (int period, int duration) {
 
-		if (vibrator == null || !vibrator.hasVibrator ()) {
+		if (vibrator == null || !vibrator.hasVibrator () || period < 0 || duration <= 0) {
 
 			return;
 
 		}
 
-		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+		if (period == 0) {
 
-			if (period == 0) {
+			if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
 
 				vibrator.vibrate (VibrationEffect.createOneShot (duration, VibrationEffect.DEFAULT_AMPLITUDE));
 
 			} else {
 
-				int periodMS = Math.max (1, (int)Math.ceil (period / 2.0));
-				int count = Math.max (1, (int)Math.ceil ((duration / (double) period) * 2));
-				long[] pattern = new long[count];
-
-				for (int i = 0; i < count; i++) {
-
-					pattern[i] = periodMS;
-
-				}
-
-				vibrator.vibrate (VibrationEffect.createWaveform (pattern, -1));
+				vibrator.vibrate (duration);
 
 			}
 
 		} else {
 
-			if (period == 0) {
+			// each period has two halves (vibrator off/vibrator on), and each half requires a separate entry in the array
+			int periodMS = (int)Math.ceil (period / 2.0);
+			int count = (int)Math.ceil (duration / (double) periodMS);
+			long[] pattern = new long[count];
 
-				vibrator.vibrate (duration);
+			// the first entry is the delay before vibration starts, so leave it as 0
+			for (int i = 1; i < count; i++) {
+
+				pattern[i] = periodMS;
+
+			}
+
+			if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+
+				vibrator.vibrate (VibrationEffect.createWaveform (pattern, -1));
 
 			} else {
-
-				int periodMS = (int)Math.ceil (period / 2);
-				int count = (int)Math.ceil ((duration / period) * 2);
-				long[] pattern = new long[count];
-
-				for (int i = 0; i < count; i++) {
-
-					pattern[i] = periodMS;
-
-				}
 
 				vibrator.vibrate (pattern, -1);
 
