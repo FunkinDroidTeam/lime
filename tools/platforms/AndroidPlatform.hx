@@ -473,8 +473,8 @@ class AndroidPlatform extends PlatformTarget
 			"android.permission.VIBRATE",
 			"android.permission.ACCESS_NETWORK_STATE"
 		]);
-		context.ANDROID_GRADLE_VERSION = project.config.getString("android.gradle-version", "7.4.2");
-		context.ANDROID_GRADLE_PLUGIN = project.config.getString("android.gradle-plugin", "7.3.1");
+		context.ANDROID_GRADLE_VERSION = project.config.getString("android.gradle-version", "8.0");
+		context.ANDROID_GRADLE_PLUGIN = project.config.getString("android.gradle-plugin", "8.1.1");
 		context.ANDROID_USE_ANDROIDX = project.config.getString("android.useAndroidX", "true");
 		context.ANDROID_ENABLE_JETIFIER = project.config.getString("android.enableJetifier", "false");
 		context.ANDROID_MIME_TYPES = project.config.getArrayString("android.mimeType", []);
