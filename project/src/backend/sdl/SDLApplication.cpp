@@ -149,12 +149,16 @@ namespace lime {
 
 				break;
 
-			case SDL_APP_DIDENTERBACKGROUND:
+			case SDL_APP_WILLENTERBACKGROUND:
+
+				inBackground = true;
 
 				windowEvent.type = WINDOW_DEACTIVATE;
 				WindowEvent::Dispatch (&windowEvent);
+				break;
 
-				inBackground = true;
+			case SDL_APP_WILLENTERFOREGROUND:
+
 				break;
 
 			case SDL_APP_DIDENTERFOREGROUND:
