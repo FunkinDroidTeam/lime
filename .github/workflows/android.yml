@@ -5,21 +5,9 @@ jobs:
   android-ndll:
     runs-on: ubuntu-24.04
     steps:
-
       - uses: actions/checkout@v3
         with:
           submodules: true
-
-      - name: Install Android NDK
-        uses: nttld/setup-ndk@v1
-        id: setup-ndk
-        with:
-          ndk-version: r15c
-
-      - uses: actions/setup-java@v3
-        with:
-          distribution: "temurin"
-          java-version: 11
 
       - uses: krdlab/setup-haxe@v1
         with:
@@ -31,7 +19,7 @@ jobs:
 
       - name: Install Haxe dependencies
         run: |
-          haxelib install hxcpp 4.2.1 --quiet
+          haxelib git hxcpp https://github.com/mcagabe19-stuff/hxcpp --quiet
           haxelib install format --quiet
           haxelib install hxp --quiet
           haxelib dev lime $GITHUB_WORKSPACE
@@ -44,13 +32,13 @@ jobs:
         run: |
           haxelib run lime setup -alias -y
           lime config ANDROID_SDK $ANDROID_HOME
-          lime config ANDROID_NDK_ROOT ${{ steps.setup-ndk.outputs.ndk-path }}
-          lime config JAVA_HOME $JAVA_HOME
+          lime config ANDROID_NDK_ROOT $ANDROID_NDK_LATEST_HOME
+          lime config JAVA_HOME $JAVA_HOME_11_X64
           lime config ANDROID_SETUP true
 
       - name: Rebuild Lime (Android)
         run: |
-          lime rebuild android -release -nocolor -verbose -nocffi
+          lime rebuild android -final -eval -nocolor -verbose -nocffi
 
       - uses: actions/upload-artifact@v3
         with:
