@@ -38,7 +38,7 @@ jobs:
 
       - name: Rebuild Lime (Android)
         run: |
-          lime rebuild android -final -eval -nocolor -verbose -nocffi
+          lime rebuild android -D HXCPP_ARM64 -final -eval -nocolor -verbose -nocffi
 
       - uses: actions/upload-artifact@v3
         with:
