@@ -1,0 +1,19 @@
+<xml>
+
+	<files id="native-toolkit-wuffs-png">
+
+		<compilerflag value="-I${NATIVE_TOOLKIT_PATH}/wuffs/release/c" />
+		<compilerflag value="-DWUFFS_CONFIG__MODULES"/>
+		<compilerflag value="-DWUFFS_CONFIG__MODULE__ZLIB"/>
+		<compilerflag value="-DWUFFS_CONFIG__MODULE__PNG"/>
+		<compilerflag value="-DWUFFS_CONFIG__MODULE__DEFLATE"/>
+		<compilerflag value="-DWUFFS_CONFIG__MODULE__AUX__BASE"/>
+		<compilerflag value="-DWUFFS_CONFIG__MODULE__AUX__IMAGE"/>
+		<compilerflag value="-DWUFFS_CONFIG__MODULE__BASE"/>
+
+		<file name="${NATIVE_TOOLKIT_PATH}/wuffs/release/c/wuffs-v0.3.c" />
+
+
+	</files>
+
+</xml>

@@ -200,6 +200,7 @@
 		<section if="LIME_PNG">
 
 			<compilerflag value="-I${NATIVE_TOOLKIT_PATH}/custom/png/" />
+			<compilerflag value="-I${NATIVE_TOOLKIT_PATH}/wuffs/release/c/" />
 			<compilerflag value="-I${NATIVE_TOOLKIT_PATH}/png/" />
 			<compilerflag value="-I${NATIVE_TOOLKIT_PATH}/zlib/" />
 			<compilerflag value="-DLIME_PNG" />
@@ -357,6 +358,7 @@
 	<include name="lib/ogg-files.xml" />
 	<include name="lib/openal-files.xml" />
 	<include name="lib/pixman-files.xml" />
+	<include name="lib/wuffs-files.xml" />
 	<include name="lib/png-files.xml" />
 	<include name="lib/sdl-files.xml" />
 	<include name="lib/tinyfiledialogs-files.xml" />
@@ -391,6 +393,7 @@
 		<files id="native-toolkit-openal" if="LIME_OPENALSOFT" />
 		<files id="native-toolkit-pixman" if="LIME_PIXMAN" />
 		<files id="native-toolkit-png" if="LIME_PNG" />
+		<files id="native-toolkit-wuffs-png" if="LIME_PNG" />
 		<files id="native-toolkit-sdl" if="LIME_SDL" unless="emscripten" />
 		<files id="native-toolkit-tinyfiledialogs" if="LIME_TINYFILEDIALOGS" />
 		<files id="native-toolkit-vorbis" if="LIME_VORBIS" />

@@ -83,3 +83,6 @@
 	path = project/lib/hashlink
 	url = https://github.com/HaxeFoundation/hashlink
 	shallow = true
+[submodule "project/lib/wuffs"]
+	path = project/lib/wuffs
+	url = https://github.com/google/wuffs.git
