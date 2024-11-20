@@ -540,6 +540,7 @@ class AndroidPlatform extends PlatformTarget
 
 		context.ANDROID_SDK_ESCAPED = StringTools.replace(context.ENV_ANDROID_SDK, "\\", "\\\\");
 		context.ANDROID_NDK_ROOT_ESCAPED = StringTools.replace(context.ENV_ANDROID_NDK_ROOT, "\\", "\\\\");
+		context.ANDROID_NDK_VERSION = getNdkVer();
 
 		// we need to specify ndkVersion in build.gradle, and the value can be
 		// found in the NDK's source.properties file
@@ -693,5 +694,20 @@ class AndroidPlatform extends PlatformTarget
 
 		var command = ProjectHelper.getCurrentCommand();
 		System.watch(command, dirs);
+	}
+
+	private function getNdkVer():String
+	{
+		var file:Array<String> = File.getContent(Sys.getEnv("ANDROID_NDK_ROOT") + '/source.properties').split('\n');
+		for (line in file)
+		{
+			if (StringTools.startsWith(line, "Pkg.BaseRevision"))
+			{
+				var baseRevision:Array<String> = line.split('=');
+				var version:String = baseRevision.pop();
+				return StringTools.trim(version);
+			}
+		}
+		return "00.0.0";
 	}
 }
