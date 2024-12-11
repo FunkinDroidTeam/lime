@@ -17,6 +17,7 @@ android {
 	compileSdkVersion Integer.parseInt(project.ANDROID_BUILD_SDK_VERSION)
 	buildToolsVersion project.ANDROID_BUILD_TOOLS_VERSION
 	::if (ANDROID_GRADLE_PLUGIN>="4.0")::ndkPath '::ANDROID_NDK_ROOT_ESCAPED::'::end::
+	::if (ANDROID_GRADLE_PLUGIN>="4.0")::ndkVersion '::ANDROID_NDK_VERSION::'::end::
 
 	defaultConfig {
 		applicationId "::META_PACKAGE_NAME::"
@@ -81,12 +82,31 @@ android {
 			}
 		}
 	}
+
+	::if (ANDROID_PLAY_ASSETS_DELIVERY_NAMES)::
+  assetPacks = [::foreach (ANDROID_PLAY_ASSETS_DELIVERY_NAMES):: ":::__current__::" ::end::]
+	::end::
 }
 
 dependencies {
 	implementation fileTree(dir: 'libs', include: ['*.jar'])
 	::if (ANDROID_LIBRARY_PROJECTS)::::foreach (ANDROID_LIBRARY_PROJECTS)::implementation project(':deps:::name::')
 	::end::::end::
+}
+
+tasks.whenTaskAdded { task ->
+  if (task.name.startsWith("bundle")) {
+		task.doLast {
+    	def flavor = task.name.substring("bundle".length()).uncapitalize()
+    	def outputDir = "${buildDir}/outputs/bundle/${flavor}"
+      def originalFile = file("${outputDir}/app-${flavor}.aab")
+      def renamedFile = file("${outputDir}/::APP_FILE::-${flavor}.aab")
+
+      if (originalFile.exists()) {
+        originalFile.renameTo(renamedFile)
+			}
+    }
+  }
 }
 
 def getPassword(message) {

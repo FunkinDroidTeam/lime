@@ -135,20 +135,19 @@ class AndroidPlatform extends PlatformTarget
 		var hxml = targetDirectory + "/haxe/" + buildType + ".hxml";
 		var sourceSet = destination + "/app/src/main";
 
-		var hasARMV5 = (ArrayTools.containsValue(project.architectures, Architecture.ARMV5)
-			|| ArrayTools.containsValue(project.architectures, Architecture.ARMV6));
-		var hasARMV7 = ArrayTools.containsValue(project.architectures, Architecture.ARMV7);
 		var hasARM64 = ArrayTools.containsValue(project.architectures, Architecture.ARM64);
-		var hasX86 = ArrayTools.containsValue(project.architectures, Architecture.X86);
+		var hasARMV7 = ArrayTools.containsValue(project.architectures, Architecture.ARMV7);
+		var hasARMV5 = (ArrayTools.containsValue(project.architectures, Architecture.ARMV5) || ArrayTools.containsValue(project.architectures, Architecture.ARMV6));
 		var hasX64 = ArrayTools.containsValue(project.architectures, Architecture.X64);
+		var hasX86 = ArrayTools.containsValue(project.architectures, Architecture.X86);
 
 		var architectures = [];
 
-		if (hasARMV5) architectures.push(Architecture.ARMV5);
-		if (hasARMV7) architectures.push(Architecture.ARMV7);
 		if (hasARM64) architectures.push(Architecture.ARM64);
-		if (hasX86) architectures.push(Architecture.X86);
+		if (hasARMV7) architectures.push(Architecture.ARMV7);
+		if (hasARMV5) architectures.push(Architecture.ARMV5);
 		if (hasX64) architectures.push(Architecture.X64);
+		if (hasX86) architectures.push(Architecture.X86);
 
 		if (architectures.length == 0)
 		{
@@ -161,20 +160,13 @@ class AndroidPlatform extends PlatformTarget
 
 		for (architecture in architectures)
 		{
-			var haxeParams = [hxml, "-D", "android", "-D", "PLATFORM=android-21"];
-			var cppParams = ["-Dandroid", "-DPLATFORM=android-21"];
+			var minimumSDKVersion = project.config.getInt("android.minimum-sdk-version", 24);
+			var haxeParams = [hxml, "-D", "android", "-D", "PLATFORM=android-" + minimumSDKVersion, "-D", "PLATFORM_NUMBER=" + minimumSDKVersion];
+			var cppParams = ["-Dandroid", "-DPLATFORM=android-" + minimumSDKVersion, "-DPLATFORM_NUMBER=" + minimumSDKVersion];
 			var path = sourceSet + "/jniLibs/armeabi";
 			var suffix = ".so";
 
-			if (architecture == Architecture.ARMV7)
-			{
-				haxeParams.push("-D");
-				haxeParams.push("HXCPP_ARMV7");
-				cppParams.push("-DHXCPP_ARMV7");
-				path = sourceSet + "/jniLibs/armeabi-v7a";
-				suffix = "-v7.so";
-			}
-			else if (architecture == Architecture.ARM64)
+			if (architecture == Architecture.ARM64)
 			{
 				haxeParams.push("-D");
 				haxeParams.push("HXCPP_ARM64");
@@ -182,13 +174,13 @@ class AndroidPlatform extends PlatformTarget
 				path = sourceSet + "/jniLibs/arm64-v8a";
 				suffix = "-64.so";
 			}
-			else if (architecture == Architecture.X86)
+			else if (architecture == Architecture.ARMV7)
 			{
 				haxeParams.push("-D");
-				haxeParams.push("HXCPP_X86");
-				cppParams.push("-DHXCPP_X86");
-				path = sourceSet + "/jniLibs/x86";
-				suffix = "-x86.so";
+				haxeParams.push("HXCPP_ARMV7");
+				cppParams.push("-DHXCPP_ARMV7");
+				path = sourceSet + "/jniLibs/armeabi-v7a";
+				suffix = "-v7.so";
 			}
 			else if (architecture == Architecture.X64)
 			{
@@ -197,6 +189,14 @@ class AndroidPlatform extends PlatformTarget
 				cppParams.push("-DHXCPP_X86_64");
 				path = sourceSet + "/jniLibs/x86_64";
 				suffix = "-x86_64.so";
+			}
+			else if (architecture == Architecture.X86)
+			{
+				haxeParams.push("-D");
+				haxeParams.push("HXCPP_X86");
+				cppParams.push("-DHXCPP_X86");
+				path = sourceSet + "/jniLibs/x86";
+				suffix = "-x86.so";
 			}
 
 			for (ndll in project.ndlls)
@@ -213,11 +213,11 @@ class AndroidPlatform extends PlatformTarget
 			System.copyIfNewer(targetDirectory + "/obj/libApplicationMain" + (project.debug ? "-debug" : "") + suffix, path + "/libApplicationMain.so");
 		}
 
-		if (!hasARMV5)
+		if (!hasARM64)
 		{
-			if (FileSystem.exists(sourceSet + "/jniLibs/armeabi"))
+			if (FileSystem.exists(sourceSet + "/jniLibs/arm64-v8a"))
 			{
-				System.removeDirectory(sourceSet + "/jniLibs/armeabi");
+				System.removeDirectory(sourceSet + "/jniLibs/arm64-v8a");
 			}
 		}
 
@@ -229,19 +229,11 @@ class AndroidPlatform extends PlatformTarget
 			}
 		}
 
-		if (!hasARM64)
+		if (!hasARMV5)
 		{
-			if (FileSystem.exists(sourceSet + "/jniLibs/arm64-v8a"))
+			if (FileSystem.exists(sourceSet + "/jniLibs/armeabi"))
 			{
-				System.removeDirectory(sourceSet + "/jniLibs/arm64-v8a");
-			}
-		}
-
-		if (!hasX86)
-		{
-			if (FileSystem.exists(sourceSet + "/jniLibs/x86"))
-			{
-				System.removeDirectory(sourceSet + "/jniLibs/x86");
+				System.removeDirectory(sourceSet + "/jniLibs/armeabi");
 			}
 		}
 
@@ -250,6 +242,14 @@ class AndroidPlatform extends PlatformTarget
 			if (FileSystem.exists(sourceSet + "/jniLibs/x86_64"))
 			{
 				System.removeDirectory(sourceSet + "/jniLibs/x86_64");
+			}
+		}
+
+		if (!hasX86)
+		{
+			if (FileSystem.exists(sourceSet + "/jniLibs/x86"))
+			{
+				System.removeDirectory(sourceSet + "/jniLibs/x86");
 			}
 		}
 
@@ -284,14 +284,28 @@ class AndroidPlatform extends PlatformTarget
 			var outputDirectory = null;
 			if (project.config.exists("android.gradle-build-directory"))
 			{
-				outputDirectory = Path.combine(project.config.getString("android.gradle-build-directory"), project.app.file + "/app/outputs/apk");
+				if (targetFlags.exists("bundle") && project.keystore != null)
+				{
+					outputDirectory = Path.combine(project.config.getString("android.gradle-build-directory"), project.app.file + "/app/outputs/bundle");
+				}
+				else
+				{
+					outputDirectory = Path.combine(project.config.getString("android.gradle-build-directory"), project.app.file + "/app/outputs/apk");
+				}
 			}
 			else
 			{
-				outputDirectory = Path.combine(FileSystem.fullPath(targetDirectory), "bin/app/build/outputs/apk");
+				if (targetFlags.exists("bundle") && project.keystore != null)
+				{
+					outputDirectory = Path.combine(FileSystem.fullPath(targetDirectory), "bin/app/build/outputs/bundle");
+				}
+				else
+				{
+					outputDirectory = Path.combine(FileSystem.fullPath(targetDirectory), "bin/app/build/outputs/apk");
+				}
 			}
 
-			Sys.println(Path.combine(outputDirectory, project.app.file + build + ".apk"));
+			Sys.println(Path.combine(outputDirectory, project.app.file + build + '${targetFlags.exists("bundle") && project.keystore != null ? ".aab" : ".apk"}'));
 		}
 		else
 		{
@@ -349,35 +363,49 @@ class AndroidPlatform extends PlatformTarget
 
 		if (project.config.exists("android.gradle-build-directory"))
 		{
-			outputDirectory = Path.combine(project.config.getString("android.gradle-build-directory"), project.app.file + "/app/outputs/apk/" + build);
+			if (targetFlags.exists("bundle") && project.keystore != null)
+			{
+				outputDirectory = Path.combine(project.config.getString("android.gradle-build-directory"), project.app.file + "/app/outputs/bundle/" + build);
+			}
+			else
+			{
+				outputDirectory = Path.combine(project.config.getString("android.gradle-build-directory"), project.app.file + "/app/outputs/apk/" + build);
+			}
 		}
 		else
 		{
-			outputDirectory = Path.combine(FileSystem.fullPath(targetDirectory), "bin/app/build/outputs/apk/" + build);
+			if (targetFlags.exists("bundle") && project.keystore != null)
+			{
+				outputDirectory = Path.combine(FileSystem.fullPath(targetDirectory), "bin/app/build/outputs/bundle/" + build);
+			}
+			else
+			{
+				outputDirectory = Path.combine(FileSystem.fullPath(targetDirectory), "bin/app/build/outputs/apk/" + build);
+			}
 		}
 
-		var apkPath = Path.combine(outputDirectory, project.app.file + "-" + build + ".apk");
+		var packagePath = Path.combine(outputDirectory, project.app.file + "-" + build + '${targetFlags.exists("bundle") && project.keystore != null ? ".aab" : ".apk"}');
 
-		deviceID = AndroidHelper.install(project, apkPath, deviceID);
+		deviceID = AndroidHelper.install(project, outputDirectory, packagePath, deviceID, targetFlags.exists("bundle"));
 	}
 
 	public override function rebuild():Void
 	{
-		var armv5 = (/*command == "rebuild" ||*/
-			ArrayTools.containsValue(project.architectures, Architecture.ARMV5)
-			|| ArrayTools.containsValue(project.architectures, Architecture.ARMV6));
-		var armv7 = (command == "rebuild" || ArrayTools.containsValue(project.architectures, Architecture.ARMV7));
 		var arm64 = (command == "rebuild" || ArrayTools.containsValue(project.architectures, Architecture.ARM64));
+		var armv7 = (command == "rebuild" || ArrayTools.containsValue(project.architectures, Architecture.ARMV7));
+		var armv5 = (ArrayTools.containsValue(project.architectures, Architecture.ARMV5) || ArrayTools.containsValue(project.architectures, Architecture.ARMV6));
+		var x64 = (ArrayTools.containsValue(project.architectures, Architecture.X64));
 		var x86 = (command == "rebuild" || ArrayTools.containsValue(project.architectures, Architecture.X86));
-		var x64 = (/*command == "rebuild" ||*/ ArrayTools.containsValue(project.architectures, Architecture.X64));
 
 		var commands = [];
 
-		if (armv5) commands.push(["-Dandroid", "-DPLATFORM=android-21"]);
-		if (armv7) commands.push(["-Dandroid", "-DHXCPP_ARMV7", "-DPLATFORM=android-21"]);
-		if (arm64) commands.push(["-Dandroid", "-DHXCPP_ARM64", "-DPLATFORM=android-21"]);
-		if (x86) commands.push(["-Dandroid", "-DHXCPP_X86", "-DPLATFORM=android-21"]);
-		if (x64) commands.push(["-Dandroid", "-DHXCPP_X86_64", "-DPLATFORM=android-21"]);
+		var minimumSDKVersion = project.config.getInt("android.minimum-sdk-version", 24);
+
+		if (arm64) commands.push(["-Dandroid", "-DHXCPP_ARM64", "-DPLATFORM=android-" + minimumSDKVersion, "-DPLATFORM_NUMBER=" + minimumSDKVersion]);
+		if (armv7) commands.push(["-Dandroid", "-DHXCPP_ARMV7", "-DPLATFORM=android-" + minimumSDKVersion, "-DPLATFORM_NUMBER=" + minimumSDKVersion]);
+		if (armv5) commands.push(["-Dandroid", "-DPLATFORM=android-" + minimumSDKVersion, "-DPLATFORM_NUMBER=" + minimumSDKVersion]);
+		if (x64) commands.push(["-Dandroid", "-DHXCPP_X86_64", "-DPLATFORM=android-" + minimumSDKVersion, "-DPLATFORM_NUMBER=" + minimumSDKVersion]);
+		if (x86) commands.push(["-Dandroid", "-DHXCPP_X86", "-DPLATFORM=android-" + minimumSDKVersion, "-DPLATFORM_NUMBER=" + minimumSDKVersion]);
 
 		CPPHelper.rebuild(project, commands);
 	}
@@ -426,31 +454,16 @@ class AndroidPlatform extends PlatformTarget
 
 		for (asset in project.assets)
 		{
-			if (asset.type != AssetType.TEMPLATE)
+			if (asset.embed != true && asset.type != AssetType.TEMPLATE)
 			{
-				var targetPath = "";
-
-				switch (asset.type)
+				if (!project.padAssets.exists(asset.id))
 				{
-					default:
-						// case SOUND, MUSIC:
-
-						// var extension = Path.extension (asset.sourcePath);
-						// asset.flatName += ((extension != "") ? "." + extension : "");
-
-						// asset.resourceName = asset.flatName;
-						targetPath = Path.combine(sourceSet + "/assets/", asset.resourceName);
-
-						// asset.resourceName = asset.id;
-						// targetPath = sourceSet + "/res/raw/" + asset.flatName + "." + Path.extension (asset.targetPath);
-
-						// default:
-
-						// asset.resourceName = asset.flatName;
-						// targetPath = sourceSet + "/assets/" + asset.resourceName;
+					AssetHelper.copyAssetIfNewer(asset, Path.combine(sourceSet + "/assets/", asset.resourceName));
 				}
-
-				AssetHelper.copyAssetIfNewer(asset, targetPath);
+				else
+				{
+					AssetHelper.copyAssetIfNewer(asset, Path.combine(destination + "/" + project.padAssets.get(asset.id).name + "/src/main" + "/assets/", asset.resourceName));
+				}
 			}
 		}
 
@@ -463,9 +476,8 @@ class AndroidPlatform extends PlatformTarget
 
 		context.CPP_DIR = targetDirectory + "/obj";
 		context.OUTPUT_DIR = targetDirectory;
-		context.ANDROID_INSTALL_LOCATION = project.config.getString("android.install-location", "auto");
-		context.ANDROID_MINIMUM_SDK_VERSION = project.config.getInt("android.minimum-sdk-version", 21);
-		context.ANDROID_TARGET_SDK_VERSION = project.config.getInt("android.target-sdk-version", 30);
+		context.ANDROID_MINIMUM_SDK_VERSION = project.config.getInt("android.minimum-sdk-version", 24);
+		context.ANDROID_TARGET_SDK_VERSION = project.config.getInt("android.target-sdk-version", 35);
 		context.ANDROID_EXTENSIONS = project.config.getArrayString("android.extension");
 		context.ANDROID_PERMISSIONS = project.config.getArrayString("android.permission", [
 			"android.permission.WAKE_LOCK",
@@ -473,28 +485,38 @@ class AndroidPlatform extends PlatformTarget
 			"android.permission.VIBRATE",
 			"android.permission.ACCESS_NETWORK_STATE"
 		]);
-		context.ANDROID_GRADLE_VERSION = project.config.getString("android.gradle-version", "7.4.2");
-		context.ANDROID_GRADLE_PLUGIN = project.config.getString("android.gradle-plugin", "7.3.1");
+		context.ANDROID_GRADLE_VERSION = project.config.getString("android.gradle-version", "8.9");
+		context.ANDROID_GRADLE_PLUGIN = project.config.getString("android.gradle-plugin", "8.7.1");
 		context.ANDROID_USE_ANDROIDX = project.config.getString("android.useAndroidX", "true");
 		context.ANDROID_ENABLE_JETIFIER = project.config.getString("android.enableJetifier", "false");
 
+		context.ANDROID_MANIFEST = project.config.getKeyValueArray("android.manifest", {
+			"android:versionCode": project.meta.buildNumber,
+			"android:versionName": project.meta.version,
+			"android:installLocation": project.config.getString("android.install-location", "auto")
+		});
+		context.ANDROID_MANIFEST_CHILDREN = project.config.get("android.manifest").xmlChildren;
 		context.ANDROID_APPLICATION = project.config.getKeyValueArray("android.application", {
 			"android:label": project.meta.title,
 			"android:allowBackup": "true",
 			"android:theme": "@android:style/Theme.NoTitleBar" + (project.window.fullscreen ? ".Fullscreen" : ""),
 			"android:hardwareAccelerated": "true",
-			"android:allowNativeHeapPointerTagging": context.ANDROID_TARGET_SDK_VERSION >= 30 ? "false" : null
+			"android:allowNativeHeapPointerTagging": context.ANDROID_TARGET_SDK_VERSION >= 30 ? "false" : null,
+			"android:largeHeap": "true"
 		});
+		context.ANDROID_APPLICATION_CHILDREN = project.config.get("android.application").xmlChildren;
 		context.ANDROID_ACTIVITY = project.config.getKeyValueArray("android.activity", {
 			"android:name": "MainActivity",
 			"android:exported": "true",
 			"android:launchMode": "singleTask",
 			"android:label": project.meta.title,
+			"android:resizeableActivity": '${project.window.resizable}',
 			"android:configChanges": project.config.getArrayString("android.configChanges",
 				["layoutDirection", "locale", "orientation", "uiMode", "screenLayout", "screenSize", "smallestScreenSize", "keyboard", "keyboardHidden", "navigation"])
 				.join("|"),
 			"android:screenOrientation": project.window.orientation == PORTRAIT ? "sensorPortrait" : (project.window.orientation == LANDSCAPE ? "sensorLandscape" : null)
 		});
+		context.ANDROID_ACTIVITY_CHILDREN = project.config.get("android.activity").xmlChildren;
 		context.ANDROID_ACCEPT_FILE_INTENT = project.config.getArrayString("android.accept-file-intent", []);
 
 		if (!project.environment.exists("ANDROID_SDK") || !project.environment.exists("ANDROID_NDK_ROOT"))
@@ -523,6 +545,7 @@ class AndroidPlatform extends PlatformTarget
 
 		context.ANDROID_SDK_ESCAPED = StringTools.replace(context.ENV_ANDROID_SDK, "\\", "\\\\");
 		context.ANDROID_NDK_ROOT_ESCAPED = StringTools.replace(context.ENV_ANDROID_NDK_ROOT, "\\", "\\\\");
+		context.ANDROID_NDK_VERSION = getNdkVer();
 
 		if (Reflect.hasField(context, "KEY_STORE")) context.KEY_STORE = StringTools.replace(context.KEY_STORE, "\\", "\\\\");
 		if (Reflect.hasField(context, "KEY_STORE_ALIAS")) context.KEY_STORE_ALIAS = StringTools.replace(context.KEY_STORE_ALIAS, "\\", "\\\\");
@@ -553,6 +576,20 @@ class AndroidPlatform extends PlatformTarget
 					});
 				index++;
 			}
+		}
+
+		var configuredPADs:Array<String> = [];
+		context.ANDROID_PLAY_ASSETS_DELIVERY_NAMES = [];
+		context.ANDROID_PLAY_ASSETS_DELIVERY_MODES = [];
+
+		for (pad in project.padAssets)
+		{
+			if (configuredPADs.contains(pad.name)) continue;
+
+			cast(context.ANDROID_PLAY_ASSETS_DELIVERY_NAMES, Array<Dynamic>).push(pad.name);
+			cast(context.ANDROID_PLAY_ASSETS_DELIVERY_MODES, Array<Dynamic>).push(pad.mode);
+
+			configuredPADs.push(pad.name);
 		}
 
 		for (attribute in context.ANDROID_APPLICATION)
@@ -631,11 +668,24 @@ class AndroidPlatform extends PlatformTarget
 
 		for (asset in project.assets)
 		{
-			if (asset.type == AssetType.TEMPLATE)
+			if (asset.embed != true && asset.type == AssetType.TEMPLATE)
 			{
 				var targetPath = Path.combine(destination, asset.targetPath);
 				System.mkdir(Path.directory(targetPath));
 				AssetHelper.copyAsset(asset, targetPath, context);
+			}
+		}
+
+		var names:Array<String> = [for (name in cast(context.ANDROID_PLAY_ASSETS_DELIVERY_NAMES, Array<Dynamic>)) name];
+		if (names.length > 0)
+		{
+			for (i in 0...names.length)
+			{
+				var padContext:Dynamic = {};
+				padContext.ANDROID_PLAY_ASSETS_DELIVERY_NAME = names[i];
+				padContext.ANDROID_PLAY_ASSETS_DELIVERY_MODE = context.ANDROID_PLAY_ASSETS_DELIVERY_MODES[i];
+
+				System.copyFileTemplate(project.templatePaths, "android/asset-pack/build.gradle", targetDirectory + "/bin/" + names[i] + "/build.gradle", padContext);
 			}
 		}
 	}
@@ -653,5 +703,20 @@ class AndroidPlatform extends PlatformTarget
 
 		var command = ProjectHelper.getCurrentCommand();
 		System.watch(command, dirs);
+	}
+
+	private function getNdkVer():String
+	{
+		var file:Array<String> = File.getContent(Sys.getEnv("ANDROID_NDK_ROOT") + '/source.properties').split('\n');
+		for (line in file)
+		{
+			if (StringTools.startsWith(line, "Pkg.BaseRevision"))
+			{
+				var baseRevision:Array<String> = line.split('=');
+				var version:String = baseRevision.pop();
+				return StringTools.trim(version);
+			}
+		}
+		return "00.0.0";
 	}
 }
