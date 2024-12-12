@@ -399,7 +399,7 @@ class ProjectXMLParser extends HXProject
 			}
 			else if (Path.extension(path) == "bundle")
 			{
-				parseAssetsElementLibrary(path, targetPath, "*", "", type, embed, library, glyphs, true, deliveryPackName);
+				parseAssetsElementLibrary(path, targetPath, "*", "", type, embed, library, glyphs, deliveryPackName, true);
 			}
 			else
 			{
@@ -454,7 +454,7 @@ class ProjectXMLParser extends HXProject
 					}*/
 				}
 
-				parseAssetsElementDirectory(path, targetPath, include, exclude, type, embed, library, glyphs, true, deliveryPackName);
+				parseAssetsElementDirectory(path, targetPath, include, exclude, type, embed, library, glyphs, deliveryPackName, true);
 			}
 		}
 		else
@@ -548,7 +548,7 @@ class ProjectXMLParser extends HXProject
 	}
 
 	private function parseAssetsElementDirectory(path:String, targetPath:String, include:String, exclude:String, type:AssetType, embed:Null<Bool>,
-			library:String, glyphs:String, recursive:Bool, deliveryPackName:String):Void
+			library:String, glyphs:String, deliveryPackName:String, recursive:Bool):Void
 	{
 		var files = FileSystem.readDirectory(path);
 
@@ -593,7 +593,7 @@ class ProjectXMLParser extends HXProject
 	}
 
 	private function parseAssetsElementLibrary(path:String, targetPath:String, include:String, exclude:String, type:AssetType, embed:Null<Bool>,
-			library:String, glyphs:String, recursive:Bool, deliveryPackName:String):Void
+			library:String, glyphs:String, deliveryPackName:String, recursive:Bool):Void
 	{
 		var includePath = findIncludeFile(path);
 
@@ -647,7 +647,7 @@ class ProjectXMLParser extends HXProject
 
 		if (!processedLibrary)
 		{
-			parseAssetsElementDirectory(path, targetPath, include, exclude, type, embed, library, glyphs, true, deliveryPackName);
+			parseAssetsElementDirectory(path, targetPath, include, exclude, type, embed, library, glyphs, deliveryPackName, true);
 		}
 	}
 
