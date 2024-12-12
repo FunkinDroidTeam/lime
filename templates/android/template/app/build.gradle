@@ -72,6 +72,7 @@ android {
 		release {
 			minifyEnabled false
 			signingConfig signingConfigs.release
+			proguardFiles getDefaultProguardFile('proguard-android-optimize.txt')
 		}
 	}
 
@@ -101,6 +102,10 @@ tasks.whenTaskAdded { task ->
     	def outputDir = "${buildDir}/outputs/bundle/${flavor}"
       def originalFile = file("${outputDir}/app-${flavor}.aab")
       def renamedFile = file("${outputDir}/::APP_FILE::-${flavor}.aab")
+
+     if (renamedFile.exists()) {
+      renamedFile.delete()
+     }
 
       if (originalFile.exists()) {
         originalFile.renameTo(renamedFile)

@@ -18,11 +18,11 @@ class AndroidHelper
 			Sys.putEnv("ANDROID_SDK", project.environment.get("ANDROID_SDK"));
 		}
 
-		var task = "assembleDebug";
+		var task = project.targetFlags.exists("bundle") ? "bundleDebug" : "assembleDebug";
 
 		if (project.keystore != null)
 		{
-			if (project.targetFlags.exists("bundle"))
+			if (StringTools.startsWith(task, "bundle"))
 			{
 				task = "bundleRelease";
 			}
@@ -200,7 +200,7 @@ class AndroidHelper
 		}
 	}
 
-	public static function install(project:HXProject, outDir:String, targetPath:String, deviceID:String = null, isBundle:Bool = false):String
+	public static function install(project:HXProject, targetPath:String, deviceID:String = null, isBundle:Bool = false):String
 	{
 		if (!FileSystem.exists(adbPath + adbName))
 		{
@@ -277,19 +277,25 @@ class AndroidHelper
 
 		if (isBundle)
 		{
+			final apksPath:String = haxe.io.Path.withoutExtension(targetPath) + ".apks";
+
+			if (FileSystem.exists(apksPath))
+				FileSystem.deleteFile(apksPath);
+
 			args = ["build-apks"];
 
 			args.push("--bundle=" + targetPath);
-			args.push("--output=" + outDir + project.app.file + '-release' + ".apks");
+			args.push("--output=" + apksPath);
+			args.push("--mode=universal");
 			args.push("--ks=" + project.keystore.path);
 			args.push("--ks-pass=pass:" + project.keystore.password);
 			args.push("--ks-key-alias=" + project.keystore.alias);
 			args.push("--key-pass=pass:" + project.keystore.password);
 
-			System.runCommand("", executableName, args);
+			System.runCommand(project.environment.get("JAVA_HOME") + 'bin/', executableName, args);
 
 			args = ["install-apks"];
-			args.push("--apks=" + outDir + project.app.file + '-release' + ".apks");
+			args.push("--apks=" + apksPath);
 
 			if (deviceID != null && deviceID != "")
 				connect(deviceID);
@@ -315,7 +321,7 @@ class AndroidHelper
 			}
 		}
 
-		System.runCommand((isBundle) ? "" : adbPath, executableName, args);
+		System.runCommand((isBundle) ? project.environment.get("JAVA_HOME") + 'bin/' : adbPath, executableName, args);
 
 		return deviceID;
 	}
