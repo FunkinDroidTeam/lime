@@ -547,13 +547,13 @@
         <section if="mac">
 
             <compilerflag value="-fobjc-arc" />
+
             <file name="${NATIVE_TOOLKIT_PATH}/sdl/src/audio/coreaudio/SDL_coreaudio.m" />
             <file name="${NATIVE_TOOLKIT_PATH}/sdl/src/file/cocoa/SDL_rwopsbundlesupport.m" />
             <file name="${NATIVE_TOOLKIT_PATH}/sdl/src/filesystem/cocoa/SDL_sysfilesystem.m" />
             <file name="${NATIVE_TOOLKIT_PATH}/sdl/src/haptic/darwin/SDL_syshaptic.c" />
             <file name="${NATIVE_TOOLKIT_PATH}/sdl/src/hidapi/mac/hid.c" />
             <file name="${NATIVE_TOOLKIT_PATH}/sdl/src/joystick/darwin/SDL_iokitjoystick.c" />
-            <file name="${NATIVE_TOOLKIT_PATH}/sdl/src/joystick/iphoneos/SDL_mfijoystick.m" />
             <file name="${NATIVE_TOOLKIT_PATH}/sdl/src/locale/macosx/SDL_syslocale.m" />
             <file name="${NATIVE_TOOLKIT_PATH}/sdl/src/misc/macosx/SDL_sysurl.m" />
             <file name="${NATIVE_TOOLKIT_PATH}/sdl/src/power/macosx/SDL_syspower.c" />
@@ -576,6 +576,7 @@
         <section if="ios || tvos">
 
             <compilerflag value="-fobjc-arc" unless="OBJC_ARC" />
+
             <file name="${NATIVE_TOOLKIT_PATH}/sdl/src/audio/coreaudio/SDL_coreaudio.m" />
             <file name="${NATIVE_TOOLKIT_PATH}/sdl/src/file/cocoa/SDL_rwopsbundlesupport.m" />
             <file name="${NATIVE_TOOLKIT_PATH}/sdl/src/filesystem/cocoa/SDL_sysfilesystem.m" />
