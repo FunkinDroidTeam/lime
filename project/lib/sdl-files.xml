@@ -71,6 +71,7 @@
         <depend name="${NATIVE_TOOLKIT_PATH}/sdl/include/SDL_version.h" />
         <depend name="${NATIVE_TOOLKIT_PATH}/sdl/include/SDL_video.h" />
         <depend name="${NATIVE_TOOLKIT_PATH}/sdl/include/SDL.h" />
+        <depend name="${NATIVE_TOOLKIT_PATH}/sdl/src/video/yuv2rgb/yuv_rgb.h" />
 
         <section if="winrt">
             <depend name="${NATIVE_TOOLKIT_PATH}/sdl/src/core/winrt/SDL_winrtapp_common.h" />
@@ -199,8 +200,10 @@
         <file name="${NATIVE_TOOLKIT_PATH}/sdl/src/file/SDL_rwops.c" />
         <file name="${NATIVE_TOOLKIT_PATH}/sdl/src/haptic/SDL_haptic.c" />
         <file name="${NATIVE_TOOLKIT_PATH}/sdl/src/hidapi/SDL_hidapi.c" />
+        <file name="${NATIVE_TOOLKIT_PATH}/sdl/src/joystick/controller_type.c" />
         <file name="${NATIVE_TOOLKIT_PATH}/sdl/src/joystick/SDL_gamecontroller.c" />
         <file name="${NATIVE_TOOLKIT_PATH}/sdl/src/joystick/SDL_joystick.c" />
+        <file name="${NATIVE_TOOLKIT_PATH}/sdl/src/joystick/SDL_steam_virtual_gamepad.c" />
         <file name="${NATIVE_TOOLKIT_PATH}/sdl/src/joystick/steam/SDL_steamcontroller.c" />
         <file name="${NATIVE_TOOLKIT_PATH}/sdl/src/joystick/virtual/SDL_virtualjoystick.c" />
         <file name="${NATIVE_TOOLKIT_PATH}/sdl/src/libm/e_atan2.c" />
@@ -242,12 +245,15 @@
         <file name="${NATIVE_TOOLKIT_PATH}/sdl/src/SDL_assert.c" />
         <file name="${NATIVE_TOOLKIT_PATH}/sdl/src/SDL_dataqueue.c" />
         <file name="${NATIVE_TOOLKIT_PATH}/sdl/src/SDL_error.c" />
+        <file name="${NATIVE_TOOLKIT_PATH}/sdl/src/SDL_guid.c" />
         <file name="${NATIVE_TOOLKIT_PATH}/sdl/src/SDL_hints.c" />
         <file name="${NATIVE_TOOLKIT_PATH}/sdl/src/SDL_list.c" />
         <file name="${NATIVE_TOOLKIT_PATH}/sdl/src/SDL_log.c" />
+        <file name="${NATIVE_TOOLKIT_PATH}/sdl/src/SDL_utils.c" />
         <file name="${NATIVE_TOOLKIT_PATH}/sdl/src/SDL.c" />
         <file name="${NATIVE_TOOLKIT_PATH}/sdl/src/sensor/dummy/SDL_dummysensor.c" />
         <file name="${NATIVE_TOOLKIT_PATH}/sdl/src/sensor/SDL_sensor.c" />
+        <file name="${NATIVE_TOOLKIT_PATH}/sdl/src/stdlib/SDL_crc16.c" />
         <file name="${NATIVE_TOOLKIT_PATH}/sdl/src/stdlib/SDL_crc32.c" />
         <file name="${NATIVE_TOOLKIT_PATH}/sdl/src/stdlib/SDL_getenv.c" />
         <file name="${NATIVE_TOOLKIT_PATH}/sdl/src/stdlib/SDL_iconv.c" />
@@ -281,7 +287,10 @@
         <file name="${NATIVE_TOOLKIT_PATH}/sdl/src/video/SDL_video.c" />
         <file name="${NATIVE_TOOLKIT_PATH}/sdl/src/video/SDL_vulkan_utils.c" />
         <file name="${NATIVE_TOOLKIT_PATH}/sdl/src/video/SDL_yuv.c" />
-        <file name="${NATIVE_TOOLKIT_PATH}/sdl/src/video/yuv2rgb/yuv_rgb.c" />
+        <file name="${NATIVE_TOOLKIT_PATH}/sdl/src/video/yuv2rgb/yuv_rgb_lsx.c" />
+        <file name="${NATIVE_TOOLKIT_PATH}/sdl/src/video/yuv2rgb/yuv_rgb_sse.c" />
+        <file name="${NATIVE_TOOLKIT_PATH}/sdl/src/video/yuv2rgb/yuv_rgb_std.c" />
+
 
         <section unless="windows">
 
