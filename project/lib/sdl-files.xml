@@ -480,8 +480,8 @@
             <file name="${NATIVE_TOOLKIT_PATH}/sdl/src/joystick/windows/SDL_xinputjoystick.c" />
             <file name="${NATIVE_TOOLKIT_PATH}/sdl/src/loadso/windows/SDL_sysloadso.c" />
             <file name="${NATIVE_TOOLKIT_PATH}/sdl/src/render/direct3d11/SDL_render_d3d11.c" />
-            <file name="${NATIVE_TOOLKIT_PATH}/sdl/src/render/direct3d12/SDL_shaders_d3d11.c" />
-            <file name="${NATIVE_TOOLKIT_PATH}/sdl/src/render/direct3d11/SDL_render_d3d11.c" />
+            <file name="${NATIVE_TOOLKIT_PATH}/sdl/src/render/direct3d11/SDL_shaders_d3d11.c" />
+            <file name="${NATIVE_TOOLKIT_PATH}/sdl/src/render/direct3d12/SDL_render_d3d12.c" />
             <file name="${NATIVE_TOOLKIT_PATH}/sdl/src/render/direct3d12/SDL_shaders_d3d12.c" />
             <file name="${NATIVE_TOOLKIT_PATH}/sdl/src/render/SDL_d3dmath.c" />
             <file name="${NATIVE_TOOLKIT_PATH}/sdl/src/thread/generic/SDL_syscond.c" />
