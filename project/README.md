@@ -17,12 +17,12 @@ This directory contains two categories of code.
 - Linux requires several packages (names may vary per distro).
 
    ```bash
-   sudo apt install libgl1-mesa-dev libglu1-mesa-dev g++ g++-multilib gcc-multilib libasound2-dev libx11-dev libxext-dev libxi-dev libxrandr-dev libxinerama-dev libpulse-dev
+   sudo apt install libgl1-mesa-dev libglu1-mesa-dev g++ g++-multilib gcc-multilib libasound2-dev libx11-dev libxext-dev libxi-dev libxrandr-dev libxinerama-dev libudev-dev libpulse-dev
    ```
 - Raspberry Pi OS requires a slightly different set of packages.
 
    ```bash
-   sudo apt install libgl1-mesa-dev libglu1-mesa-dev g++ libasound2-dev libx11-dev libxext-dev libxi-dev libxrandr-dev libxinerama-dev libpulse-dev libxcursor-dev libdbus-1-dev libdrm-dev libgbm-dev libudev-dev
+   sudo apt install libgl1-mesa-dev libglu1-mesa-dev g++ libasound2-dev libx11-dev libxext-dev libxi-dev libxrandr-dev libxinerama-dev libudev-dev libpulse-dev libxcursor-dev libdbus-1-dev libdrm-dev libgbm-dev libudev-dev
    ```
 - Building HashLink requires [additional packages](https://github.com/HaxeFoundation/hashlink#readme).
 
