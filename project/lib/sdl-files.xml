@@ -196,6 +196,7 @@
         <file name="${NATIVE_TOOLKIT_PATH}/sdl/src/events/SDL_keysym_to_scancode.c" />
         <file name="${NATIVE_TOOLKIT_PATH}/sdl/src/events/SDL_mouse.c" />
         <file name="${NATIVE_TOOLKIT_PATH}/sdl/src/events/SDL_quit.c" />
+        <file name="${NATIVE_TOOLKIT_PATH}/sdl/src/events/SDL_scancode_tables.c" />
         <file name="${NATIVE_TOOLKIT_PATH}/sdl/src/events/SDL_touch.c" />
         <file name="${NATIVE_TOOLKIT_PATH}/sdl/src/events/SDL_windowevents.c" />
         <file name="${NATIVE_TOOLKIT_PATH}/sdl/src/file/SDL_rwops.c" />
