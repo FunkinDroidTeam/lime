@@ -220,6 +220,7 @@
 #define HAVE_INOTIFY_INIT 1
 #define HAVE_INOTIFY_INIT1 1
 #define HAVE_INOTIFY 1
+#define HAVE_LINUX_INPUT_H 1
 /* #undef HAVE_IBUS_IBUS_H */
 /* #undef HAVE_IMMINTRIN_H */
 #define HAVE_LIBUDEV_H 1
