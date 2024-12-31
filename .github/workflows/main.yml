@@ -312,19 +312,19 @@ jobs:
       - name: Prepare Lime
         run: |
           haxelib dev lime ${{ github.workspace }}
-          haxelib run lime setup -alias -y -nocffi -eval
+          haxelib run lime setup -alias -y -nocffi
 
       - name: Configure Android support
         run: |
-          lime config ANDROID_SDK $ANDROID_HOME -eval
-          lime config ANDROID_NDK_ROOT ${{ steps.setup-ndk.outputs.ndk-path }} -eval
-          lime config JAVA_HOME $JAVA_HOME -eval
-          lime config ANDROID_SETUP true -eval
-          lime config -eval
+          lime config ANDROID_SDK $ANDROID_HOME
+          lime config ANDROID_NDK_ROOT ${{ steps.setup-ndk.outputs.ndk-path }}
+          lime config JAVA_HOME $JAVA_HOME
+          lime config ANDROID_SETUP true
+          lime config
 
       - name: Rebuild Lime (Android)
         run: |
-          lime rebuild android -release -nocolor -verbose -nocffi -eval
+          lime rebuild android -release -nocolor -verbose -nocffi
 
       - uses: actions/upload-artifact@v4
         with:
@@ -340,18 +340,18 @@ jobs:
 
       - name: Build HelloWorld sample
         run: |
-          lime create HelloWorld -verbose -nocolor -eval
-          lime build HelloWorld android -release -verbose -nocolor -eval
+          lime create HelloWorld -verbose -nocolor
+          lime build HelloWorld android -release -verbose -nocolor
 
       - name: Build SimpleImage sample
         run: |
-          lime create SimpleImage -verbose -nocolor -eval
-          lime build SimpleImage android -release -verbose -nocolor -eval
+          lime create SimpleImage -verbose -nocolor
+          lime build SimpleImage android -release -verbose -nocolor
 
       - name: Build SimpleAudio sample
         run: |
-          lime create SimpleAudio -verbose -nocolor -eval
-          lime build SimpleAudio android -release -verbose -nocolor -eval
+          lime create SimpleAudio -verbose -nocolor
+          lime build SimpleAudio android -release -verbose -nocolor
   ios:
     runs-on: macos-13
     steps:
@@ -382,11 +382,11 @@ jobs:
       - name: Prepare Lime
         run: |
           haxelib dev lime ${{ github.workspace }}
-          haxelib run lime setup -alias -y -nocffi -eval
+          haxelib run lime setup -alias -y -nocffi
 
       - name: Rebuild Lime (iOS)
         run: |
-          lime rebuild ios -clean -release -verbose -nocolor -eval
+          lime rebuild ios -clean -release -verbose -nocolor
 
       - uses: actions/upload-artifact@v4
         with:
@@ -402,18 +402,18 @@ jobs:
 
       # - name: Build HelloWorld sample
       #   run: |
-      #     lime create HelloWorld -verbose -nocolor -eval
-      #     lime build HelloWorld ios -simulator -release -verbose -nocolor -eval
+      #     lime create HelloWorld -verbose -nocolor
+      #     lime build HelloWorld ios -simulator -release -verbose -nocolor
 
       - name: Build SimpleImage sample (Simulator)
         run: |
-          lime create SimpleImage -verbose -nocolor -eval
-          lime build SimpleImage ios -simulator -release -verbose -nocolor -eval
+          lime create SimpleImage -verbose -nocolor
+          lime build SimpleImage ios -simulator -release -verbose -nocolor
 
       - name: Build SimpleAudio sample (Device)
         run: |
-          lime create SimpleAudio -verbose -nocolor -eval
-          lime build SimpleAudio ios -release -nosign -verbose -nocolor -eval
+          lime create SimpleAudio -verbose -nocolor
+          lime build SimpleAudio ios -release -nosign -verbose -nocolor
 
   package-haxelib:
     needs: [linux, macos, windows, android, ios]
@@ -585,22 +585,22 @@ jobs:
       - name: Prepare Lime
         run: |
           haxelib dev lime ${{ github.workspace }}
-          haxelib run lime setup -alias -y -nocffi -eval
+          haxelib run lime setup -alias -y -nocffi
 
       - name: Build HelloWorld sample
         run: |
-          lime create HelloWorld -verbose -nocolor -eval
-          lime build HelloWorld flash -release -verbose -nocolor -eval
+          lime create HelloWorld -verbose -nocolor
+          lime build HelloWorld flash -release -verbose -nocolor
 
       - name: Build SimpleImage sample
         run: |
-          lime create SimpleImage -verbose -nocolor -eval
-          lime build SimpleImage flash -release -verbose -nocolor -eval
+          lime create SimpleImage -verbose -nocolor
+          lime build SimpleImage flash -release -verbose -nocolor
 
       - name: Build SimpleAudio sample
         run: |
-          lime create SimpleAudio -verbose -nocolor -eval
-          lime build SimpleAudio flash -release -verbose -nocolor -eval
+          lime create SimpleAudio -verbose -nocolor
+          lime build SimpleAudio flash -release -verbose -nocolor
 
   air-samples:
     runs-on: windows-latest
@@ -637,23 +637,23 @@ jobs:
       - name: Prepare Lime
         run: |
           haxelib dev lime ${{ github.workspace }}
-          haxelib run lime setup -alias -y -nocffi -eval
-          haxelib run lime config AIR_SDK ${{ env.AIR_HOME }} -eval
+          haxelib run lime setup -alias -y -nocffi
+          haxelib run lime config AIR_SDK ${{ env.AIR_HOME }}
 
       - name: Build HelloWorld sample
         run: |
-          lime create HelloWorld -verbose -nocolor -eval
-          lime build HelloWorld air -release -verbose -nocolor -eval
+          lime create HelloWorld -verbose -nocolor
+          lime build HelloWorld air -release -verbose -nocolor
 
       - name: Build SimpleImage sample
         run: |
-          lime create SimpleImage -verbose -nocolor -eval
-          lime build SimpleImage air -release -verbose -nocolor -eval
+          lime create SimpleImage -verbose -nocolor
+          lime build SimpleImage air -release -verbose -nocolor
 
       - name: Build SimpleAudio sample
         run: |
-          lime create SimpleAudio -verbose -nocolor -eval
-          lime build SimpleAudio air -release -verbose -nocolor -eval
+          lime create SimpleAudio -verbose -nocolor
+          lime build SimpleAudio air -release -verbose -nocolor
 
   hashlink-samples:
     needs: package-haxelib
@@ -779,37 +779,37 @@ jobs:
       - name: Prepare Lime
         run: |
           haxelib dev lime ${{ github.workspace }}
-          haxelib run lime setup -alias -y -nocffi -eval
+          haxelib run lime setup -alias -y -nocffi
 
       - name: Build HelloWorld sample
         run: |
-          lime create HelloWorld -verbose -nocolor -eval
-          lime build HelloWorld html5 -release -verbose -nocolor -eval
+          lime create HelloWorld -verbose -nocolor
+          lime build HelloWorld html5 -release -verbose -nocolor
 
       - name: Build HelloWorld variants
         run: |
-          lime build HelloWorld html5 -clean -release -verbose -nocolor --haxelib=genes -eval
-          lime build HelloWorld html5 -clean -release -verbose -nocolor -minify -terser -eval
+          lime build HelloWorld html5 -clean -release -verbose -nocolor --haxelib=genes
+          lime build HelloWorld html5 -clean -release -verbose -nocolor -minify -terser
 
       - name: Build SimpleImage sample
         run: |
-          lime create SimpleImage -verbose -nocolor -eval
-          lime build SimpleImage html5 -release -verbose -nocolor -eval
+          lime create SimpleImage -verbose -nocolor
+          lime build SimpleImage html5 -release -verbose -nocolor
 
       - name: Build SimpleImage variants
         run: |
-          lime build SimpleImage html5 -clean -release -verbose -nocolor --haxelib=genes -eval
-          lime build SimpleImage html5 -clean -release -verbose -nocolor -minify -terser -eval
+          lime build SimpleImage html5 -clean -release -verbose -nocolor --haxelib=genes
+          lime build SimpleImage html5 -clean -release -verbose -nocolor -minify -terser
 
       - name: Build SimpleAudio sample
         run: |
-          lime create SimpleAudio -verbose -nocolor -eval
-          lime build SimpleAudio html5 -release -verbose -nocolor -eval
+          lime create SimpleAudio -verbose -nocolor
+          lime build SimpleAudio html5 -release -verbose -nocolor
 
       - name: Build SimpleAudio variants
         run: |
-          lime build SimpleAudio html5 -clean -release -verbose -nocolor --haxelib=genes -eval
-          lime build SimpleAudio html5 -clean -release -verbose -nocolor -minify -terser -eval
+          lime build SimpleAudio html5 -clean -release -verbose -nocolor --haxelib=genes
+          lime build SimpleAudio html5 -clean -release -verbose -nocolor -minify -terser
 
   neko-samples:
     needs: package-haxelib
