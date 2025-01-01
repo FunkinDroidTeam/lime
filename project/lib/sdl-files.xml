@@ -150,24 +150,24 @@
 
         </section>
 
-            <section if="rpi">
+        <section if="rpi">
 
-                <compilerflag value="-mfpu=neon" unless="HXCPP_ARM64" />
-                <compilerflag value="-mfloat-abi=hard" unless="HXCPP_ARM64" />
-                <compilerflag value="-I-abi=hard" />
+            <compilerflag value="-mfpu=neon" unless="HXCPP_ARM64" />
+            <compilerflag value="-mfloat-abi=hard" unless="HXCPP_ARM64" />
+            <compilerflag value="-I-abi=hard" />
 
-                <compilerflag value="-I/opt/vc/include" />
-                <compilerflag value="-I/opt/vc/include/interface/vcos/pthreads" />
-                <compilerflag value="-I/opt/vc/include/interface/vmcs_host/linux" />
-                <compilerflag value="-I/usr/include/dbus-1.0" />
-                <compilerflag value="-I/usr/include/interface/vcos/pthreads" />
-                <compilerflag value="-I/usr/include/interface/vmcs_host/linux" />
-                <compilerflag value="-I/usr/include/libdrm" />
-                <compilerflag value="-I/usr/lib/arm-linux-gnueabihf/dbus-1.0/include" unless="HXCPP_ARM64" />
-                <compilerflag value="-I/usr/lib/aarch64-linux-gnu/dbus-1.0/include" if="HXCPP_ARM64" />
-                <compilerflag value="-I/usr/local/include" />
+            <compilerflag value="-I/opt/vc/include" />
+            <compilerflag value="-I/opt/vc/include/interface/vcos/pthreads" />
+            <compilerflag value="-I/opt/vc/include/interface/vmcs_host/linux" />
+            <compilerflag value="-I/usr/include/dbus-1.0" />
+            <compilerflag value="-I/usr/include/interface/vcos/pthreads" />
+            <compilerflag value="-I/usr/include/interface/vmcs_host/linux" />
+            <compilerflag value="-I/usr/include/libdrm" />
+            <compilerflag value="-I/usr/lib/arm-linux-gnueabihf/dbus-1.0/include" unless="HXCPP_ARM64" />
+            <compilerflag value="-I/usr/lib/aarch64-linux-gnu/dbus-1.0/include" if="HXCPP_ARM64" />
+            <compilerflag value="-I/usr/local/include" />
 
-            </section>
+        </section>
 
         <section if="mac">
 
@@ -180,6 +180,12 @@
             <compilerflag value="-msse2" unless="HXCPP_ARM64" />
             <compilerflag value="-msse3" unless="HXCPP_ARM64" />
             <compilerflag value="-mssse3" unless="HXCPP_ARM64" />
+
+            <compilerflag value="-DSDL_VIDEO_RENDER_OGL_ES2=0" />
+            <compilerflag value="-DSDL_VIDEO_RENDER_METAL=0" />
+            <compilerflag value="-DSDL_VIDEO_OPENGL_EGL=0" />
+            <compilerflag value="-DSDL_VIDEO_VULKAN=0" />
+            <compilerflag value="-DSDL_VIDEO_METAL=0" />
 
         </section>
 
