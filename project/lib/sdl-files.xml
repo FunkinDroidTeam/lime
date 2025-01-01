@@ -181,12 +181,6 @@
             <compilerflag value="-msse3" unless="HXCPP_ARM64" />
             <compilerflag value="-mssse3" unless="HXCPP_ARM64" />
 
-            <compilerflag value="-DSDL_VIDEO_RENDER_OGL_ES2=0" />
-            <compilerflag value="-DSDL_VIDEO_RENDER_METAL=0" />
-            <compilerflag value="-DSDL_VIDEO_OPENGL_EGL=0" />
-            <compilerflag value="-DSDL_VIDEO_VULKAN=0" />
-            <compilerflag value="-DSDL_VIDEO_METAL=0" />
-
         </section>
 
         <file name="${NATIVE_TOOLKIT_PATH}/sdl/src/atomic/SDL_atomic.c" />
