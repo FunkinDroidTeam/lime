@@ -2,21 +2,26 @@
 
     <files id="native-toolkit-sdl-depends">
 
-        <depend name="${NATIVE_TOOLKIT_PATH}/sdl/include/begin_code.h" />
-        <depend name="${NATIVE_TOOLKIT_PATH}/sdl/include/close_code.h" />
+        <depend name="${NATIVE_TOOLKIT_PATH}/sdl/include/SDL.h" />
         <depend name="${NATIVE_TOOLKIT_PATH}/sdl/include/SDL_assert.h" />
         <depend name="${NATIVE_TOOLKIT_PATH}/sdl/include/SDL_atomic.h" />
         <depend name="${NATIVE_TOOLKIT_PATH}/sdl/include/SDL_audio.h" />
         <depend name="${NATIVE_TOOLKIT_PATH}/sdl/include/SDL_bits.h" />
         <depend name="${NATIVE_TOOLKIT_PATH}/sdl/include/SDL_blendmode.h" />
         <depend name="${NATIVE_TOOLKIT_PATH}/sdl/include/SDL_clipboard.h" />
+        <depend name="${NATIVE_TOOLKIT_PATH}/sdl/include/SDL_config.h" />
         <depend name="${NATIVE_TOOLKIT_PATH}/sdl/include/SDL_config_android.h" />
+        <depend name="${NATIVE_TOOLKIT_PATH}/sdl/include/SDL_config_emscripten.h" />
         <depend name="${NATIVE_TOOLKIT_PATH}/sdl/include/SDL_config_iphoneos.h" />
-        <depend name="${NATIVE_TOOLKIT_PATH}/custom/sdl/include/SDL_config_macosx.h" />
+        <depend name="${NATIVE_TOOLKIT_PATH}/sdl/include/SDL_config_macosx.h" />
         <depend name="${NATIVE_TOOLKIT_PATH}/sdl/include/SDL_config_minimal.h" />
+        <depend name="${NATIVE_TOOLKIT_PATH}/sdl/include/SDL_config_ngage.h" />
+        <depend name="${NATIVE_TOOLKIT_PATH}/sdl/include/SDL_config_os2.h" />
         <depend name="${NATIVE_TOOLKIT_PATH}/sdl/include/SDL_config_pandora.h" />
-        <depend name="${NATIVE_TOOLKIT_PATH}/custom/sdl/include/SDL_config_windows.h" unless="winrt" />
+        <depend name="${NATIVE_TOOLKIT_PATH}/sdl/include/SDL_config_windows.h" />
+        <depend name="${NATIVE_TOOLKIT_PATH}/sdl/include/SDL_config_wingdk.h" />
         <depend name="${NATIVE_TOOLKIT_PATH}/sdl/include/SDL_config_winrt.h" />
+        <depend name="${NATIVE_TOOLKIT_PATH}/sdl/include/SDL_config_xbox.h" />
         <depend name="${NATIVE_TOOLKIT_PATH}/sdl/include/SDL_copying.h" />
         <depend name="${NATIVE_TOOLKIT_PATH}/sdl/include/SDL_cpuinfo.h" />
         <depend name="${NATIVE_TOOLKIT_PATH}/sdl/include/SDL_egl.h" />
@@ -26,26 +31,31 @@
         <depend name="${NATIVE_TOOLKIT_PATH}/sdl/include/SDL_filesystem.h" />
         <depend name="${NATIVE_TOOLKIT_PATH}/sdl/include/SDL_gamecontroller.h" />
         <depend name="${NATIVE_TOOLKIT_PATH}/sdl/include/SDL_gesture.h" />
+        <depend name="${NATIVE_TOOLKIT_PATH}/sdl/include/SDL_guid.h" />
         <depend name="${NATIVE_TOOLKIT_PATH}/sdl/include/SDL_haptic.h" />
+        <depend name="${NATIVE_TOOLKIT_PATH}/sdl/include/SDL_hidapi.h" />
         <depend name="${NATIVE_TOOLKIT_PATH}/sdl/include/SDL_hints.h" />
         <depend name="${NATIVE_TOOLKIT_PATH}/sdl/include/SDL_joystick.h" />
         <depend name="${NATIVE_TOOLKIT_PATH}/sdl/include/SDL_keyboard.h" />
         <depend name="${NATIVE_TOOLKIT_PATH}/sdl/include/SDL_keycode.h" />
         <depend name="${NATIVE_TOOLKIT_PATH}/sdl/include/SDL_loadso.h" />
+        <depend name="${NATIVE_TOOLKIT_PATH}/sdl/include/SDL_locale.h" />
         <depend name="${NATIVE_TOOLKIT_PATH}/sdl/include/SDL_log.h" />
         <depend name="${NATIVE_TOOLKIT_PATH}/sdl/include/SDL_main.h" />
         <depend name="${NATIVE_TOOLKIT_PATH}/sdl/include/SDL_messagebox.h" />
+        <depend name="${NATIVE_TOOLKIT_PATH}/sdl/include/SDL_metal.h" />
+        <depend name="${NATIVE_TOOLKIT_PATH}/sdl/include/SDL_misc.h" />
         <depend name="${NATIVE_TOOLKIT_PATH}/sdl/include/SDL_mouse.h" />
         <depend name="${NATIVE_TOOLKIT_PATH}/sdl/include/SDL_mutex.h" />
         <depend name="${NATIVE_TOOLKIT_PATH}/sdl/include/SDL_name.h" />
-        <depend name="${NATIVE_TOOLKIT_PATH}/sdl/include/SDL_opengl_glext.h" />
         <depend name="${NATIVE_TOOLKIT_PATH}/sdl/include/SDL_opengl.h" />
+        <depend name="${NATIVE_TOOLKIT_PATH}/sdl/include/SDL_opengl_glext.h" />
         <depend name="${NATIVE_TOOLKIT_PATH}/sdl/include/SDL_opengles.h" />
+        <depend name="${NATIVE_TOOLKIT_PATH}/sdl/include/SDL_opengles2.h" />
         <depend name="${NATIVE_TOOLKIT_PATH}/sdl/include/SDL_opengles2_gl2.h" />
         <depend name="${NATIVE_TOOLKIT_PATH}/sdl/include/SDL_opengles2_gl2ext.h" />
         <depend name="${NATIVE_TOOLKIT_PATH}/sdl/include/SDL_opengles2_gl2platform.h" />
         <depend name="${NATIVE_TOOLKIT_PATH}/sdl/include/SDL_opengles2_khrplatform.h" />
-        <depend name="${NATIVE_TOOLKIT_PATH}/sdl/include/SDL_opengles2.h" />
         <depend name="${NATIVE_TOOLKIT_PATH}/sdl/include/SDL_pixels.h" />
         <depend name="${NATIVE_TOOLKIT_PATH}/sdl/include/SDL_platform.h" />
         <depend name="${NATIVE_TOOLKIT_PATH}/sdl/include/SDL_power.h" />
@@ -55,23 +65,21 @@
         <depend name="${NATIVE_TOOLKIT_PATH}/sdl/include/SDL_revision.h" />
         <depend name="${NATIVE_TOOLKIT_PATH}/sdl/include/SDL_rwops.h" />
         <depend name="${NATIVE_TOOLKIT_PATH}/sdl/include/SDL_scancode.h" />
+        <depend name="${NATIVE_TOOLKIT_PATH}/sdl/include/SDL_sensor.h" />
         <depend name="${NATIVE_TOOLKIT_PATH}/sdl/include/SDL_shape.h" />
         <depend name="${NATIVE_TOOLKIT_PATH}/sdl/include/SDL_stdinc.h" />
         <depend name="${NATIVE_TOOLKIT_PATH}/sdl/include/SDL_surface.h" />
         <depend name="${NATIVE_TOOLKIT_PATH}/sdl/include/SDL_system.h" />
         <depend name="${NATIVE_TOOLKIT_PATH}/sdl/include/SDL_syswm.h" />
-        <depend name="${NATIVE_TOOLKIT_PATH}/sdl/include/SDL_test_assert.h" />
-        <depend name="${NATIVE_TOOLKIT_PATH}/sdl/include/SDL_test_common.h" />
-        <depend name="${NATIVE_TOOLKIT_PATH}/sdl/include/SDL_test_random.h" />
-        <depend name="${NATIVE_TOOLKIT_PATH}/sdl/include/SDL_test.h" />
         <depend name="${NATIVE_TOOLKIT_PATH}/sdl/include/SDL_thread.h" />
         <depend name="${NATIVE_TOOLKIT_PATH}/sdl/include/SDL_timer.h" />
         <depend name="${NATIVE_TOOLKIT_PATH}/sdl/include/SDL_touch.h" />
         <depend name="${NATIVE_TOOLKIT_PATH}/sdl/include/SDL_types.h" />
         <depend name="${NATIVE_TOOLKIT_PATH}/sdl/include/SDL_version.h" />
         <depend name="${NATIVE_TOOLKIT_PATH}/sdl/include/SDL_video.h" />
-        <depend name="${NATIVE_TOOLKIT_PATH}/sdl/include/SDL.h" />
-        <depend name="${NATIVE_TOOLKIT_PATH}/sdl/src/video/yuv2rgb/yuv_rgb.h" />
+        <depend name="${NATIVE_TOOLKIT_PATH}/sdl/include/SDL_vulkan.h" />
+        <depend name="${NATIVE_TOOLKIT_PATH}/sdl/include/begin_code.h" />
+        <depend name="${NATIVE_TOOLKIT_PATH}/sdl/include/close_code.h" />
 
         <section if="winrt">
             <depend name="${NATIVE_TOOLKIT_PATH}/sdl/src/core/winrt/SDL_winrtapp_common.h" />
@@ -90,9 +98,11 @@
     <files id="native-toolkit-sdl" tags="">
 
         <cache value="1" />
+
         <tag value="${NATIVE_TOOLKIT_OPTIM_TAG}" if="NATIVE_TOOLKIT_OPTIM_TAG" />
 
         <compilerflag value="-DUSING_GENERATED_CONFIG_H" if="linux || rpi" /> <!-- For other targets, it doesn't matter which header is included. -->
+
         <depend files="native-toolkit-sdl-depends" />
 
         <compilerflag value="-I${ANDROID_NDK_ROOT}/sources/android/cpufeatures" if="android" />
@@ -100,15 +110,12 @@
         <compilerflag value="-I${NATIVE_TOOLKIT_PATH}/custom/sdl/include/" />
         <compilerflag value="-I${NATIVE_TOOLKIT_PATH}/sdl/include/" />
         <compilerflag value="-I${NATIVE_TOOLKIT_PATH}/sdl/src/hidapi/hidapi/" />
-        <compilerflag value="-I${SDL_CONFIG_PATH}" if="SDL_CONFIG_PATH" />
 
         <compilerflag value="-DGL_GLEXT_PROTOTYPES" if="android || rpi" />
         <compilerflag value="-DHAVE_LIBC" />
 
         <compilerflag value="-D__IPHONEOS__" if="ios || tvos" />
         <compilerflag value="-D__TVOS__" if="tvos" />
-
-        <!--<compilerflag value="-DSDL_HIDAPI_DISABLED" />-->
 
         <section if="windows">
 
@@ -136,11 +143,10 @@
             <compilerflag value="-msse3" unless="rpi" />
             <compilerflag value="-mssse3" unless="rpi" />
 
-            <set name="XINPUT2" value="${NATIVE_TOOLKIT_SDL_X11_XINPUT2}" />
-            <compilerflag value="-DNATIVE_TOOLKIT_SDL_X11_XINPUT2=${XINPUT2}" if="XINPUT2" />
-            <compilerflag value="-DNATIVE_TOOLKIT_SDL_X11_XINPUT2_SUPPORTS_MULTITOUCH=${XINPUT2}" if="XINPUT2" />
-            <compilerflag value="-DNATIVE_TOOLKIT_SDL_X11_XINPUT2=0" unless="XINPUT2" />
-            <compilerflag value="-DNATIVE_TOOLKIT_SDL_X11_XINPUT2_SUPPORTS_MULTITOUCH=0" unless="XINPUT2" />
+            <compilerflag value="-DNATIVE_TOOLKIT_SDL_X11_XINPUT2=${NATIVE_TOOLKIT_SDL_X11_XINPUT2}" if="NATIVE_TOOLKIT_SDL_X11_XINPUT2" />
+            <compilerflag value="-DNATIVE_TOOLKIT_SDL_X11_XINPUT2_SUPPORTS_MULTITOUCH=${XINPUT2}" if="NATIVE_TOOLKIT_SDL_X11_XINPUT2" />
+            <compilerflag value="-DNATIVE_TOOLKIT_SDL_X11_XINPUT2=0" unless="NATIVE_TOOLKIT_SDL_X11_XINPUT2" />
+            <compilerflag value="-DNATIVE_TOOLKIT_SDL_X11_XINPUT2_SUPPORTS_MULTITOUCH=0" unless="NATIVE_TOOLKIT_SDL_X11_XINPUT2" />
 
         </section>
 
@@ -168,6 +174,7 @@
             <compilerflag value="-DTARGET_API_MAC_CARBON" />
             <compilerflag value="-DTARGET_API_MAC_OSX" />
             <compilerflag value="-D_THREAD_SAFE" />
+
             <compilerflag value="-mmmx" unless="HXCPP_ARM64" />
             <compilerflag value="-msse" unless="HXCPP_ARM64" />
             <compilerflag value="-msse2" unless="HXCPP_ARM64" />
