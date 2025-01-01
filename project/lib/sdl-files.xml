@@ -509,6 +509,7 @@
                 <file name="${NATIVE_TOOLKIT_PATH}/sdl/src/misc/windows/SDL_sysurl.c" />
                 <file name="${NATIVE_TOOLKIT_PATH}/sdl/src/power/windows/SDL_syspower.c" />
                 <file name="${NATIVE_TOOLKIT_PATH}/sdl/src/render/direct3d/SDL_render_d3d.c" />
+                <file name="${NATIVE_TOOLKIT_PATH}/sdl/src/render/direct3d/SDL_shaders_d3d.c" />
                 <file name="${NATIVE_TOOLKIT_PATH}/sdl/src/video/windows/SDL_windowsclipboard.c" />
                 <file name="${NATIVE_TOOLKIT_PATH}/sdl/src/video/windows/SDL_windowsevents.c" />
                 <file name="${NATIVE_TOOLKIT_PATH}/sdl/src/video/windows/SDL_windowsframebuffer.c" />
