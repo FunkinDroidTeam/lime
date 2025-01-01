@@ -18,7 +18,7 @@
         <depend name="${NATIVE_TOOLKIT_PATH}/sdl/include/SDL_config_ngage.h" />
         <depend name="${NATIVE_TOOLKIT_PATH}/sdl/include/SDL_config_os2.h" />
         <depend name="${NATIVE_TOOLKIT_PATH}/sdl/include/SDL_config_pandora.h" />
-        <depend name="${NATIVE_TOOLKIT_PATH}/custom/sdl/include/SDL_config_windows.h" />
+        <depend name="${NATIVE_TOOLKIT_PATH}/custom/sdl/include/SDL_config_windows.h" unless="winrt" />
         <depend name="${NATIVE_TOOLKIT_PATH}/sdl/include/SDL_config_wingdk.h" />
         <depend name="${NATIVE_TOOLKIT_PATH}/sdl/include/SDL_config_winrt.h" />
         <depend name="${NATIVE_TOOLKIT_PATH}/sdl/include/SDL_config_xbox.h" />
