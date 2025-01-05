@@ -26,8 +26,6 @@ class NativeAudioSource
 	#end
 	private static var STREAM_TIMER_FREQUENCY = 100;
 
-if (AL.isExtensionPresent("AL_SOFT_source_latency"))
-
 	private var buffers:Array<ALBuffer>;
 	private var bufferTimeBlocks:Array<Float>;
 	private var completed:Bool;
