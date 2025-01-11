@@ -1,5 +1,7 @@
 name: Android CI
-on: workflow_dispatch
+on:
+  workflow_dispatch:
+  workflow_call:
 
 jobs:
   android-ndll:
@@ -53,4 +55,5 @@ jobs:
           path: |
             ndll/Android/
             !**/.gitignore
+            lime.png
           if-no-files-found: error

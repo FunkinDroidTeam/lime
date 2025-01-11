@@ -1,5 +1,7 @@
 name: Linux CI
-on: workflow_dispatch
+on:
+  workflow_dispatch:
+  workflow_call:
 
 jobs:
   linux-ndll:
@@ -42,4 +44,5 @@ jobs:
             ndll/Linux/
             ndll/Linux64/
             !**/.gitignore
+            lime.png
           if-no-files-found: error

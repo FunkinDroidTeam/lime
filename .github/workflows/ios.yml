@@ -1,5 +1,8 @@
 name: iOS CI
-on: workflow_dispatch
+on:
+  workflow_dispatch:
+  workflow_call:
+
 jobs:
   ios-ndll:
     runs-on: macos-13
@@ -43,4 +46,5 @@ jobs:
           path: |
             ndll/iPhone/
             !**/.gitignore
+            lime.png
           if-no-files-found: error
