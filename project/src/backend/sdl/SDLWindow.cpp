@@ -47,10 +47,10 @@ namespace lime {
 
 		int sdlWindowFlags = 0;
 
-		#if defined (IPHONE) || defined (APPLETV) || defined (ANDROID)
-		if (flags & WINDOW_FLAG_FULLSCREEN) sdlWindowFlags |= SDL_WINDOW_FULLSCREEN;
+		#if defined (IPHONE) || defined (APPLETV)
+		static bool displayModeSet = true;
 		#else
-		if (flags & WINDOW_FLAG_FULLSCREEN) sdlWindowFlags |= SDL_WINDOW_FULLSCREEN_DESKTOP;
+		static bool displayModeSet = false;
 		#endif
 
 		if (flags & WINDOW_FLAG_FULLSCREEN) sdlWindowFlags |= displayModeSet ? SDL_WINDOW_FULLSCREEN : SDL_WINDOW_FULLSCREEN_DESKTOP;
