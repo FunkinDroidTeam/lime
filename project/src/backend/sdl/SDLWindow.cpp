@@ -28,7 +28,9 @@ namespace lime {
 	SDL_Cursor* SDLCursor::waitCursor = 0;
 	SDL_Cursor* SDLCursor::waitArrowCursor = 0;
 
-	#if !defined (IPHONE) && !defined (APPLETV) && !defined (ANDROID)
+	#if defined (IPHONE) || defined (APPLETV)
+	static bool displayModeSet = true;
+	#else
 	static bool displayModeSet = false;
 	#endif
 
@@ -46,12 +48,6 @@ namespace lime {
 		this->flags = flags;
 
 		int sdlWindowFlags = 0;
-
-		#if defined (IPHONE) || defined (APPLETV)
-		static bool displayModeSet = true;
-		#else
-		static bool displayModeSet = false;
-		#endif
 
 		if (flags & WINDOW_FLAG_FULLSCREEN) sdlWindowFlags |= displayModeSet ? SDL_WINDOW_FULLSCREEN : SDL_WINDOW_FULLSCREEN_DESKTOP;
 		if (flags & WINDOW_FLAG_RESIZABLE) sdlWindowFlags |= SDL_WINDOW_RESIZABLE;
