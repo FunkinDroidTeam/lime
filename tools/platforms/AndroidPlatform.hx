@@ -392,8 +392,10 @@ class AndroidPlatform extends PlatformTarget
 	public override function rebuild():Void
 	{
 		var arm64 = (command == "rebuild" || ArrayTools.containsValue(project.architectures, Architecture.ARM64));
-		var x86 = (ArrayTools.containsValue(project.architectures, Architecture.X86));
-		var x64 = (command == "rebuild" || ArrayTools.containsValue(project.architectures, Architecture.X64));
+		var armv7 = (command == "rebuild" || ArrayTools.containsValue(project.architectures, Architecture.ARMV7));
+		var armv5 = (ArrayTools.containsValue(project.architectures, Architecture.ARMV5) || ArrayTools.containsValue(project.architectures, Architecture.ARMV6));
+		var x64 = (ArrayTools.containsValue(project.architectures, Architecture.X64));
+		var x86 = (command == "rebuild" || ArrayTools.containsValue(project.architectures, Architecture.X86));
 
 		var commands = [];
 
@@ -524,6 +526,7 @@ class AndroidPlatform extends PlatformTarget
 			"android:exported": "true",
 			"android:launchMode": "singleTask",
 			"android:label": project.meta.title,
+			"android:resizeableActivity": '${project.window.resizable}',
 			"android:configChanges": project.config.getArrayString("android.configChanges",
 				["layoutDirection", "locale", "grammaticalGender", "fontScale", "fontWeightAdjustment", "orientation", "uiMode", "screenLayout", "screenSize", "smallestScreenSize", "keyboard", "keyboardHidden", "navigation"])
 				.join("|"),
