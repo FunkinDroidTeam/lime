@@ -273,7 +273,7 @@ namespace lime {
 	}
 
 
-	void System::EnableDeviceOrientationChange (bool enable) {
+		void System::EnableDeviceOrientationChange (bool enable) {
 
 		#ifdef IPHONE
 		if (enable && !orientationObserver)
