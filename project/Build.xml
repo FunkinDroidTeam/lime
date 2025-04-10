@@ -133,10 +133,9 @@
 
 		</section>
 
-		<compilerflag value="-I${NATIVE_TOOLKIT_PATH}/hashlink/src" />
-
 		<section if="LIME_HASHLINK">
 
+			<compilerflag value="-I${NATIVE_TOOLKIT_PATH}/hashlink/src" />
 			<compilerflag value="-DLIME_HASHLINK" />
 
 		</section>
