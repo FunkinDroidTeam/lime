@@ -563,13 +563,13 @@ class ProjectXMLParser extends HXProject
 			{
 				if (Path.extension(file) == "bundle")
 				{
-					parseAssetsElementLibrary(path + "/" + file, targetPath + file, include, exclude, type, embed, library, glyphs, true, deliveryPackName);
+					parseAssetsElementLibrary(path + "/" + file, targetPath + file, include, exclude, type, embed, library, glyphs, deliveryPackName, true);
 				}
 				else if (recursive)
 				{
 					if (filter(file, ["*"], exclude.split("|")))
 					{
-						parseAssetsElementDirectory(path + "/" + file, targetPath + file, include, exclude, type, embed, library, glyphs, true, deliveryPackName);
+						parseAssetsElementDirectory(path + "/" + file, targetPath + file, include, exclude, type, embed, library, glyphs, deliveryPackName, true);
 					}
 				}
 			}
