@@ -10,7 +10,7 @@
 		<string>::__current__::</string>::end::
 	</array>::end::
         <key>UIFileSharingEnabled</key>
-	<string>true</string>
+	<true/>
         <key>com.apple.developer.kernel.increased-memory-limit</key>
 	<true/>
 	<key>LSSupportsOpeningDocumentsInPlace</key>
